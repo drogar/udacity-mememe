@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -26,9 +27,14 @@
                                             <action selector="pickAnImage:" destination="BYZ-38-t0r" id="vZr-2R-U0F"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Camera" id="KVi-PH-5pJ">
+                                        <connections>
+                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="lez-JY-T3z"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Nh-2Q-WrS">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Nh-2Q-WrS">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
                         </subviews>
@@ -48,13 +54,13 @@
                                 <exclude reference="6Nh-2Q-WrS"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="56v-FT-413"/>
-                                <exclude reference="cOd-3Z-Ty8"/>
-                                <exclude reference="rH7-jU-SR6"/>
+                                <exclude reference="bHk-f8-vYz"/>
                                 <exclude reference="dNf-I2-fZd"/>
                                 <exclude reference="vV0-Z6-4dc"/>
                                 <exclude reference="vuH-cF-E8l"/>
-                                <exclude reference="bHk-f8-vYz"/>
+                                <exclude reference="56v-FT-413"/>
+                                <exclude reference="cOd-3Z-Ty8"/>
+                                <exclude reference="rH7-jU-SR6"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -63,13 +69,13 @@
                                 <include reference="6Nh-2Q-WrS"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="56v-FT-413"/>
-                                <include reference="cOd-3Z-Ty8"/>
-                                <include reference="rH7-jU-SR6"/>
+                                <include reference="bHk-f8-vYz"/>
                                 <include reference="dNf-I2-fZd"/>
                                 <include reference="vV0-Z6-4dc"/>
                                 <include reference="vuH-cF-E8l"/>
-                                <include reference="bHk-f8-vYz"/>
+                                <include reference="56v-FT-413"/>
+                                <include reference="cOd-3Z-Ty8"/>
+                                <include reference="rH7-jU-SR6"/>
                             </mask>
                         </variation>
                     </view>

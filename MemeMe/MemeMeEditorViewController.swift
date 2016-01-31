@@ -17,17 +17,31 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    @IBAction func pickAnImage(sender: UIBarButtonItem) {
+    @IBAction func pickAnImageFromPhotoLibrary(sender: UIBarButtonItem) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func pickAnImageFromCamera(sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
 
-        memeImage.image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            memeImage.image = image
+        } else if let imagePhoto = info[UIImagePickerControllerLivePhoto] as? UIImage{
+            memeImage.image = imagePhoto
+        }
+        else if let imageOriginal = info[UIImagePickerControllerOriginalImage] as? UIImage{
+            memeImage.image = imageOriginal
+        }
+    
         dismissViewControllerAnimated(true, completion: nil)
     }
     
