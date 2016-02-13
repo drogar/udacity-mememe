@@ -10,6 +10,7 @@ import UIKit
 
 class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
+    var keyboardShowing = false;
     @IBOutlet weak var memeImage: UIImageView!
 
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -104,11 +105,19 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     
     // MARK: - Keyboard notifications
     func keyboardWillShow(notification: NSNotification){
-        self.view.frame.origin.y -= getKeyboardHeight(notification)
+        if !keyboardShowing {
+            print("showing, -= keyboard height: ", getKeyboardHeight(notification))
+            self.view.frame.origin.y -= getKeyboardHeight(notification)
+        }
+        keyboardShowing = true
     }
 
     func keyboardWillHide(notification: NSNotification){
-        self.view.frame.origin.y += getKeyboardHeight(notification)
+        if keyboardShowing {
+            print("hiding += kb height:", getKeyboardHeight(notification) )
+            self.view.frame.origin.y += getKeyboardHeight(notification)
+        }
+        keyboardShowing = false
     }
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
