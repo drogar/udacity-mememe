@@ -14,7 +14,9 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     
     var activeField: UITextField?
     
-    @IBOutlet weak var memeImageHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var memeContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var navbar: UINavigationBar!
     @IBOutlet weak var toolbar: UIToolbar!
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -52,7 +54,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         subscribeToKeyboardNotifications()
         
         print("appearing at size: Height: ", view.frame.size.height, "x Width:", view.frame.size.width)
-        memeImageHeight.constant = view.frame.size.height - toolbar.frame.height
+        memeContainerHeight.constant = view.frame.size.height - toolbar.frame.height - navbar.frame.height
         
     }
     
@@ -60,7 +62,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         print("Transitioning to size: Height: ", size.height, "x Width:", size.width)
         coordinator.animateAlongsideTransition(nil, completion: { (context:UIViewControllerTransitionCoordinatorContext) -> Void in
             print("Transitioned: putting memeimageheight to ", size.height - self.toolbar.frame.height)
-            self.memeImageHeight.constant = size.height - self.toolbar.frame.height
+            self.memeContainerHeight.constant = size.height - self.toolbar.frame.height - self.navbar.frame.height
         })
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
@@ -84,6 +86,18 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
         presentViewController(imagePicker, animated: true, completion: nil)
     }
+    
+    // MARK: - Generate Image
+    
+    func generateMemedImage() -> UIImage {
+        UIGraphicsBeginImageContext(scrollView.frame.size)
+        view.drawViewHierarchyInRect(scrollView.frame,
+            afterScreenUpdates: true)
+        let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return memedImage
+    }
+    
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
 

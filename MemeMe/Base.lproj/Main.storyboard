@@ -18,98 +18,107 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PM-b0-tvp">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="wyl-Gy-mFr">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="NeH-by-4gT"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="dg7-X4-deK"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="hpw-ej-Gmy">
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFq-27-Hgk" userLabel="MemeContainerView">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="501"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Nh-2Q-WrS">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="501"/>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            </imageView>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RrW-Ar-KqW">
+                                                <rect key="frame" x="0.0" y="10" width="600" height="45"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="zy6-1f-E4V"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IPJ-7q-G0b">
+                                                <rect key="frame" x="0.0" y="426" width="600" height="45"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="VKW-sH-20j"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                                <variation key="heightClass=regular" misplaced="YES">
+                                                    <rect key="frame" x="20" y="706" width="560" height="45"/>
+                                                </variation>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="6Nh-2Q-WrS" firstAttribute="top" secondItem="BFq-27-Hgk" secondAttribute="top" id="3uQ-xl-nWQ"/>
+                                            <constraint firstItem="RrW-Ar-KqW" firstAttribute="leading" secondItem="BFq-27-Hgk" secondAttribute="leading" id="4tJ-TD-v6x"/>
+                                            <constraint firstItem="IPJ-7q-G0b" firstAttribute="centerX" secondItem="BFq-27-Hgk" secondAttribute="centerX" id="7j5-Zj-BiQ"/>
+                                            <constraint firstItem="RrW-Ar-KqW" firstAttribute="trailing" secondItem="BFq-27-Hgk" secondAttribute="trailing" id="D5G-f9-uiA"/>
+                                            <constraint firstItem="IPJ-7q-G0b" firstAttribute="leading" secondItem="BFq-27-Hgk" secondAttribute="leading" id="FR9-hf-9oL"/>
+                                            <constraint firstAttribute="height" constant="501" identifier="memeContainerHeight" id="X70-RU-qTx"/>
+                                            <constraint firstItem="IPJ-7q-G0b" firstAttribute="trailing" secondItem="BFq-27-Hgk" secondAttribute="trailing" id="ZFV-OL-jRx"/>
+                                            <constraint firstItem="6Nh-2Q-WrS" firstAttribute="trailing" secondItem="BFq-27-Hgk" secondAttribute="trailing" id="a4e-VN-lN0"/>
+                                            <constraint firstItem="RrW-Ar-KqW" firstAttribute="top" secondItem="BFq-27-Hgk" secondAttribute="top" constant="10" id="aZA-pw-1TZ"/>
+                                            <constraint firstItem="RrW-Ar-KqW" firstAttribute="centerX" secondItem="BFq-27-Hgk" secondAttribute="centerX" id="dQX-VK-bSH"/>
+                                            <constraint firstItem="6Nh-2Q-WrS" firstAttribute="leading" secondItem="BFq-27-Hgk" secondAttribute="leading" id="eyQ-3x-fYF"/>
+                                            <constraint firstItem="6Nh-2Q-WrS" firstAttribute="bottom" secondItem="BFq-27-Hgk" secondAttribute="bottom" id="gkf-s5-qRV"/>
+                                            <constraint firstItem="IPJ-7q-G0b" firstAttribute="bottom" secondItem="BFq-27-Hgk" secondAttribute="bottom" constant="-30" id="wEe-Nh-dl9"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="BFq-27-Hgk" secondAttribute="bottom" constant="-9" id="bf1-OP-Z1f"/>
+                                    <constraint firstItem="BFq-27-Hgk" firstAttribute="trailing" secondItem="hpw-ej-Gmy" secondAttribute="trailing" id="mAC-e3-tzE"/>
+                                    <constraint firstItem="BFq-27-Hgk" firstAttribute="top" secondItem="hpw-ej-Gmy" secondAttribute="top" id="oJk-XR-KWZ"/>
+                                    <constraint firstItem="BFq-27-Hgk" firstAttribute="leading" secondItem="hpw-ej-Gmy" secondAttribute="leading" id="sfz-5b-mQO"/>
+                                    <constraint firstItem="BFq-27-Hgk" firstAttribute="centerX" secondItem="hpw-ej-Gmy" secondAttribute="centerX" id="y5v-Ny-dkX"/>
+                                </constraints>
+                            </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QII-fy-Lm2">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Pick" id="QyA-NZ-lPm">
-                                        <connections>
-                                            <action selector="pickAnImageFromPhotoLibrary:" destination="BYZ-38-t0r" id="iDN-Wq-udF"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Camera" id="KVi-PH-5pJ">
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Nlr-cm-HfS"/>
+                                    <barButtonItem systemItem="camera" id="KVi-PH-5pJ">
                                         <connections>
                                             <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="lez-JY-T3z"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="a38-a6-6nE"/>
+                                    <barButtonItem title="Album" id="QyA-NZ-lPm">
+                                        <connections>
+                                            <action selector="pickAnImageFromPhotoLibrary:" destination="BYZ-38-t0r" id="iDN-Wq-udF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="QNq-TA-VGX"/>
                                 </items>
                             </toolbar>
-                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="hpw-ej-Gmy">
-                                <rect key="frame" x="0.0" y="-20" width="600" height="576"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Nh-2Q-WrS">
-                                        <rect key="frame" x="0.0" y="20" width="600" height="556"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="556" identifier="memeImageHeight" id="xpe-kW-BcS"/>
-                                        </constraints>
-                                    </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RrW-Ar-KqW">
-                                        <rect key="frame" x="20" y="40" width="560" height="15"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="zy6-1f-E4V"/>
-                                        </constraints>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="zy6-1f-E4V"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="zy6-1f-E4V"/>
-                                            </mask>
-                                        </variation>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IPJ-7q-G0b">
-                                        <rect key="frame" x="20" y="541" width="560" height="15"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="VKW-sH-20j"/>
-                                        </constraints>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="VKW-sH-20j"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular" misplaced="YES">
-                                            <rect key="frame" x="20" y="706" width="560" height="45"/>
-                                            <mask key="constraints">
-                                                <include reference="VKW-sH-20j"/>
-                                            </mask>
-                                        </variation>
-                                    </textField>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="6Nh-2Q-WrS" firstAttribute="trailing" secondItem="hpw-ej-Gmy" secondAttribute="trailing" id="2cL-pD-Khg"/>
-                                    <constraint firstItem="IPJ-7q-G0b" firstAttribute="bottom" secondItem="6Nh-2Q-WrS" secondAttribute="bottom" constant="-20" id="9O3-bo-yJk"/>
-                                    <constraint firstItem="RrW-Ar-KqW" firstAttribute="centerX" secondItem="hpw-ej-Gmy" secondAttribute="centerX" id="FIR-hv-lH5"/>
-                                    <constraint firstItem="IPJ-7q-G0b" firstAttribute="leading" secondItem="RrW-Ar-KqW" secondAttribute="leading" id="LyW-yt-Qoe"/>
-                                    <constraint firstItem="RrW-Ar-KqW" firstAttribute="centerX" secondItem="6Nh-2Q-WrS" secondAttribute="centerX" id="P0r-3k-0rc"/>
-                                    <constraint firstItem="IPJ-7q-G0b" firstAttribute="centerX" secondItem="6Nh-2Q-WrS" secondAttribute="centerX" id="Pvw-r5-6bf"/>
-                                    <constraint firstItem="6Nh-2Q-WrS" firstAttribute="bottom" secondItem="hpw-ej-Gmy" secondAttribute="bottom" constant="40" id="SYV-fq-yw6"/>
-                                    <constraint firstItem="6Nh-2Q-WrS" firstAttribute="leading" secondItem="hpw-ej-Gmy" secondAttribute="leading" id="ShE-ul-2Uu"/>
-                                    <constraint firstItem="RrW-Ar-KqW" firstAttribute="top" secondItem="6Nh-2Q-WrS" secondAttribute="top" constant="20" id="gx6-1e-ChA"/>
-                                    <constraint firstItem="RrW-Ar-KqW" firstAttribute="leading" secondItem="hpw-ej-Gmy" secondAttribute="leading" constant="20" id="j79-A8-j6E"/>
-                                    <constraint firstItem="6Nh-2Q-WrS" firstAttribute="top" secondItem="hpw-ej-Gmy" secondAttribute="top" constant="20" id="tk6-93-CtF"/>
-                                </constraints>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hpw-ej-Gmy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4vI-Ke-OsH"/>
                             <constraint firstItem="hpw-ej-Gmy" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="6xK-Qp-PLV"/>
+                            <constraint firstItem="hpw-ej-Gmy" firstAttribute="top" secondItem="0PM-b0-tvp" secondAttribute="bottom" id="Fo6-U1-ilr"/>
+                            <constraint firstItem="0PM-b0-tvp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="J5K-Qa-EKZ"/>
+                            <constraint firstItem="0PM-b0-tvp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="WbC-rT-ApQ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QII-fy-Lm2" secondAttribute="bottom" id="bHk-f8-vYz"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QII-fy-Lm2" secondAttribute="bottom" id="cRv-d8-qmm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QII-fy-Lm2" secondAttribute="trailing" constant="-20" id="dNf-I2-fZd"/>
-                            <constraint firstItem="hpw-ej-Gmy" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-20" id="fTy-Bu-79C"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0PM-b0-tvp" secondAttribute="trailing" constant="-20" id="fbc-3V-e85"/>
                             <constraint firstItem="hpw-ej-Gmy" firstAttribute="bottom" secondItem="QII-fy-Lm2" secondAttribute="top" id="sdH-xO-F8e"/>
                             <constraint firstItem="QII-fy-Lm2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="vV0-Z6-4dc"/>
                         </constraints>
@@ -117,8 +126,9 @@
                     <connections>
                         <outlet property="bottomTextField" destination="IPJ-7q-G0b" id="HUc-nw-dTy"/>
                         <outlet property="cameraButton" destination="KVi-PH-5pJ" id="1E8-WZ-ICP"/>
+                        <outlet property="memeContainerHeight" destination="X70-RU-qTx" id="t1W-Of-JDm"/>
                         <outlet property="memeImage" destination="6Nh-2Q-WrS" id="s0j-QR-WYV"/>
-                        <outlet property="memeImageHeight" destination="xpe-kW-BcS" id="eYa-q3-Z7K"/>
+                        <outlet property="navbar" destination="0PM-b0-tvp" id="pGo-47-Ks2"/>
                         <outlet property="scrollView" destination="hpw-ej-Gmy" id="3KK-N7-S5Z"/>
                         <outlet property="toolbar" destination="QII-fy-Lm2" id="gMG-6d-BWf"/>
                         <outlet property="topTextField" destination="RrW-Ar-KqW" id="dPA-0E-jJI"/>
