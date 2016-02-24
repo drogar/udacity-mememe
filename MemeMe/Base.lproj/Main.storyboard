@@ -23,7 +23,11 @@
                                 <items>
                                     <navigationItem id="wyl-Gy-mFr">
                                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="NeH-by-4gT"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="dg7-X4-deK"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="dg7-X4-deK">
+                                            <connections>
+                                                <action selector="cancel:" destination="BYZ-38-t0r" id="NHx-LQ-xfV"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

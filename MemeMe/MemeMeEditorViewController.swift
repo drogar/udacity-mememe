@@ -87,6 +87,11 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func cancel(sender: AnyObject) {
+        topTextField.text = "TOP"
+        bottomTextField.text = "BOTTOM"
+        memeImage.image = nil
+    }
     // MARK: - Generate Image
     
     func generateMemedImage() -> UIImage {
