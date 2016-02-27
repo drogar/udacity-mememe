@@ -67,9 +67,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        print("Transitioning to size: Height: ", size.height, "x Width:", size.width)
         coordinator.animateAlongsideTransition(nil, completion: { (context:UIViewControllerTransitionCoordinatorContext) -> Void in
-            print("Transitioned: putting memeimageheight to ", size.height - self.toolbar.frame.height)
             self.memeContainerHeight.constant = size.height - self.toolbar.frame.height - self.navbar.frame.height
         })
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -191,7 +189,6 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     // MARK: - Keyboard notifications
     func keyboardWillShow(notification: NSNotification){
         if keyboardAdjustment == 0.0 {
-            print("showing, -= keyboard height: ", getKeyboardHeight(notification))
             keyboardAdjustment = getKeyboardHeight(notification)
             let contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardAdjustment, 0.0)
             scrollView.scrollEnabled = true
@@ -204,23 +201,18 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
                     scrollView.scrollRectToVisible(activeFieldPresent.frame, animated: true)
                 }
             }
-        } else {
-            print("got show notification, already showing")
         }
     }
 
     func keyboardWillHide(notification: NSNotification){
         if keyboardAdjustment > 0.0 {
-            print("hiding += adjustment (kb height):", keyboardAdjustment, getKeyboardHeight(notification) )
             let contentInsets = UIEdgeInsetsZero
             scrollView.contentInset = contentInsets
             scrollView.scrollIndicatorInsets = contentInsets
             scrollView.scrollEnabled = false
             scrollView.frame.size.height += keyboardAdjustment
             keyboardAdjustment = CGFloat(0.0)
-        } else {
-            print("Got hide notification, already hidden")
-        }
+        } 
     }
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
