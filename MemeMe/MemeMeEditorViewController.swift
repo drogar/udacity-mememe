@@ -15,17 +15,23 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     var activeField: UITextField?
     
     
-    @IBOutlet weak var memeContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var navbar: UINavigationBar!
-    @IBOutlet weak var toolbar: UIToolbar!
+    
+    @IBOutlet weak var actionButton: UIBarButtonItem!
     
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var memeContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var memeContainer: UIView!
+    
     @IBOutlet weak var memeImage: UIImageView!
+    @IBOutlet weak var topTextField: UITextField!
+    @IBOutlet weak var bottomTextField: UITextField!
+    
+    @IBOutlet weak var toolbar: UIToolbar!
 
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     
-    @IBOutlet weak var topTextField: UITextField!
-    @IBOutlet weak var bottomTextField: UITextField!
     
     
     let memeTextAttributes = [
@@ -43,6 +49,8 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     
     override func viewWillAppear(animated: Bool) {
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        actionButton.enabled = (memeImage.image != nil)
+        
         topTextField.delegate = self
         topTextField.defaultTextAttributes = memeTextAttributes
         topTextField.textAlignment = NSTextAlignment.Center
@@ -87,19 +95,43 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func reScaleImage(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            memeImage.contentMode = .ScaleToFill
+        case 1:
+            memeImage.contentMode = .ScaleAspectFit
+        case 2:
+            memeImage.contentMode = .ScaleAspectFill
+        default:
+            memeImage.contentMode = .ScaleToFill
+        }
+       
+    }
     @IBAction func cancel(sender: AnyObject) {
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
         memeImage.image = nil
     }
+    
+    @IBAction func shareMeme(sender: AnyObject) {
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: memeImage.image!, memedImage: generateMemedImage())
+        let viewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
+        presentViewController(viewController, animated: true, completion: nil)
+    }
+    
     // MARK: - Generate Image
     
     func generateMemedImage() -> UIImage {
-        UIGraphicsBeginImageContext(scrollView.frame.size)
-        view.drawViewHierarchyInRect(scrollView.frame,
+        navbar.hidden = true
+        toolbar.hidden = true
+        UIGraphicsBeginImageContext(memeContainer.frame.size)
+        view.drawViewHierarchyInRect(memeContainer.frame,
             afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        navbar.hidden = false
+        toolbar.hidden = false
         return memedImage
     }
     
@@ -114,12 +146,15 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         else if let imageOriginal = info[UIImagePickerControllerOriginalImage] as? UIImage{
             memeImage.image = imageOriginal
         }
-    
+        actionButton.enabled = (memeImage.image != nil)
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        actionButton.enabled = (memeImage.image != nil)
+        
         dismissViewControllerAnimated(true, completion: nil)
         
     }

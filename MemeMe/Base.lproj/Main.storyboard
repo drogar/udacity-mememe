@@ -22,7 +22,24 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
                                     <navigationItem id="wyl-Gy-mFr">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="NeH-by-4gT"/>
+                                        <nil key="title"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="NeH-by-4gT">
+                                            <connections>
+                                                <action selector="shareMeme:" destination="BYZ-38-t0r" id="4Eu-wJ-bWK"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="2" id="YTo-6H-bUu">
+                                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="Scale to Fill"/>
+                                                <segment title="Aspect Fit"/>
+                                                <segment title="Aspect Fill"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="reScaleImage:" destination="BYZ-38-t0r" eventType="valueChanged" id="d8u-jv-fIQ"/>
+                                            </connections>
+                                        </segmentedControl>
                                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="dg7-X4-deK">
                                             <connections>
                                                 <action selector="cancel:" destination="BYZ-38-t0r" id="NHx-LQ-xfV"/>
@@ -37,7 +54,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFq-27-Hgk" userLabel="MemeContainerView">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="501"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Nh-2Q-WrS">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Nh-2Q-WrS">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="501"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             </imageView>
@@ -128,8 +145,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="actionButton" destination="NeH-by-4gT" id="gnw-JN-LVj"/>
                         <outlet property="bottomTextField" destination="IPJ-7q-G0b" id="HUc-nw-dTy"/>
                         <outlet property="cameraButton" destination="KVi-PH-5pJ" id="1E8-WZ-ICP"/>
+                        <outlet property="memeContainer" destination="BFq-27-Hgk" id="1Bv-6V-DbW"/>
                         <outlet property="memeContainerHeight" destination="X70-RU-qTx" id="t1W-Of-JDm"/>
                         <outlet property="memeImage" destination="6Nh-2Q-WrS" id="s0j-QR-WYV"/>
                         <outlet property="navbar" destination="0PM-b0-tvp" id="pGo-47-Ks2"/>
