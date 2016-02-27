@@ -61,7 +61,6 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         
         subscribeToKeyboardNotifications()
         
-        print("appearing at size: Height: ", view.frame.size.height, "x Width:", view.frame.size.width)
         memeContainerHeight.constant = view.frame.size.height - toolbar.frame.height - navbar.frame.height
         
     }
@@ -124,7 +123,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         navbar.hidden = true
         toolbar.hidden = true
         UIGraphicsBeginImageContext(memeContainer.frame.size)
-        view.drawViewHierarchyInRect(memeContainer.frame,
+        memeContainer.drawViewHierarchyInRect(memeContainer.frame,
             afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -212,7 +211,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
             scrollView.scrollEnabled = false
             scrollView.frame.size.height += keyboardAdjustment
             keyboardAdjustment = CGFloat(0.0)
-        } 
+        }
     }
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
