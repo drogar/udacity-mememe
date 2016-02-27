@@ -51,23 +51,22 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         actionButton.enabled = (memeImage.image != nil)
         
-        topTextField.delegate = self
-        topTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.textAlignment = NSTextAlignment.Center
-        
-        bottomTextField.delegate = self
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.textAlignment = NSTextAlignment.Center
+        textFieldIntialization(topTextField)
+        textFieldIntialization(bottomTextField)
         
         subscribeToKeyboardNotifications()
         
-        memeContainerHeight.constant = view.frame.size.height - toolbar.frame.height - navbar.frame.height
-        
+        computeAndSetMemeContainerHeight(view.frame.size)
     }
+    
+    func computeAndSetMemeContainerHeight(size: CGSize) {
+        memeContainerHeight.constant = size.height - toolbar.frame.height - navbar.frame.height
+    }
+    
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animateAlongsideTransition(nil, completion: { (context:UIViewControllerTransitionCoordinatorContext) -> Void in
-            self.memeContainerHeight.constant = size.height - self.toolbar.frame.height - self.navbar.frame.height
+            self.computeAndSetMemeContainerHeight(size)
         })
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
@@ -76,19 +75,26 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
+    
+    func textFieldIntialization(textField: UITextField!) {
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = NSTextAlignment.Center
+    }
     // MARK: - IBActions
 
     @IBAction func pickAnImageFromPhotoLibrary(sender: UIBarButtonItem) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: nil)
+        presentImagePicker(.PhotoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(sender: UIBarButtonItem) {
+        presentImagePicker(.Camera)
+    }
+    
+    func presentImagePicker(sourceType: UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+        imagePicker.sourceType = sourceType
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
@@ -105,10 +111,13 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         }
        
     }
+    
     @IBAction func cancel(sender: AnyObject) {
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
         memeImage.image = nil
+        
+        actionButton.enabled = false
     }
     
     @IBAction func shareMeme(sender: AnyObject) {
@@ -122,11 +131,14 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     func generateMemedImage() -> UIImage {
         navbar.hidden = true
         toolbar.hidden = true
+        
         UIGraphicsBeginImageContext(memeContainer.frame.size)
-        memeContainer.drawViewHierarchyInRect(memeContainer.frame,
-            afterScreenUpdates: true)
+        
+        memeContainer.drawViewHierarchyInRect(memeContainer.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        
         UIGraphicsEndImageContext()
+        
         navbar.hidden = false
         toolbar.hidden = false
         return memedImage
@@ -189,17 +201,21 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     func keyboardWillShow(notification: NSNotification){
         if keyboardAdjustment == 0.0 {
             keyboardAdjustment = getKeyboardHeight(notification)
+            
             let contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardAdjustment, 0.0)
             scrollView.scrollEnabled = true
             scrollView.contentInset = contentInsets
             scrollView.scrollIndicatorInsets = contentInsets
+            
             var aRect = scrollView.frame
             aRect.size.height -= keyboardAdjustment
+            
             if let activeFieldPresent = activeField {
                 if !CGRectContainsPoint(aRect, activeFieldPresent.frame.origin) {
                     scrollView.scrollRectToVisible(activeFieldPresent.frame, animated: true)
                 }
             }
+            scrollView.scrollEnabled = false
         }
     }
 
@@ -208,7 +224,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
             let contentInsets = UIEdgeInsetsZero
             scrollView.contentInset = contentInsets
             scrollView.scrollIndicatorInsets = contentInsets
-            scrollView.scrollEnabled = false
+
             scrollView.frame.size.height += keyboardAdjustment
             keyboardAdjustment = CGFloat(0.0)
         }
