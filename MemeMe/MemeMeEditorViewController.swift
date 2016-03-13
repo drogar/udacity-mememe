@@ -42,11 +42,9 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var toolbar: UIToolbar!
 
     @IBOutlet weak var cameraButton: UIBarButtonItem!
+  
     
-    
-    
-    
-    // MARK: - View methods
+    // MARK: - View method overrides
    
     override func viewWillAppear(animated: Bool) {
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
@@ -73,6 +71,14 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         unsubscribeFromKeyboardNotifications()
     }
     
+
+    // MARK: View method helper
+    
+    func computeAndSetMemeContainerHeight(size: CGSize) {
+        memeContainerHeight.constant = size.height - toolbar.frame.height - navbar.frame.height
+    }
+    
+
     // MARK: - IBActions
 
     @IBAction func pickAnImageFromPhotoLibrary(sender: UIBarButtonItem) {
@@ -112,6 +118,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         presentViewController(viewController, animated: true, completion: nil)
     }
     
+    
     // MARK: - Generate Image
     
     func generateMemedImage() -> UIImage {
@@ -126,6 +133,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         return memedImage
     }
     
+    
     // MARK: - UIImagePickerControllerDelegate Methods
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
@@ -138,17 +146,29 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         else if let imageOriginal = info[UIImagePickerControllerOriginalImage] as? UIImage{
             memeImage.image = imageOriginal
         }
-        actionButton.enabled = (memeImage.image != nil)
         
-        dismissViewControllerAnimated(true, completion: nil)
+        enableOrDisableActionsAndDismiss()
     }
     
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        enableOrDisableActionsAndDismiss()
+    }
+    
+    func enableOrDisableActionsAndDismiss() {
         actionButton.enabled = (memeImage.image != nil)
         
         dismissViewControllerAnimated(true, completion: nil)
         
+    }
+    
+    // MARK: Image Picker method
+    
+    func presentImagePicker(sourceType: UIImagePickerControllerSourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     // MARK: - UITextFieldDelegate methods
@@ -175,70 +195,15 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         return false
     }
     
-    // MARK: - Keyboard notifications
     
-    func keyboardWillShow(notification: NSNotification){
-        if keyboardAdjustment == 0.0 {
-            keyboardAdjustment = getKeyboardHeight(notification)
-            
-            let contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardAdjustment, 0.0)
-            scrollView.scrollEnabled = true
-            scrollView.contentInset = contentInsets
-            scrollView.scrollIndicatorInsets = contentInsets
-            
-            var aRect = scrollView.frame
-            aRect.size.height -= keyboardAdjustment
-            
-            if let activeFieldPresent = activeField {
-                if !CGRectContainsPoint(aRect, activeFieldPresent.frame.origin) {
-                    scrollView.scrollRectToVisible(activeFieldPresent.frame, animated: true)
-                }
-            }
-            scrollView.scrollEnabled = false
-        }
-    }
-
-    func keyboardWillHide(notification: NSNotification){
-        if keyboardAdjustment > 0.0 {
-            let contentInsets = UIEdgeInsetsZero
-            scrollView.contentInset = contentInsets
-            scrollView.scrollIndicatorInsets = contentInsets
-
-            scrollView.frame.size.height += keyboardAdjustment
-            keyboardAdjustment = CGFloat(0.0)
-        }
-    }
-    
-    func subscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    func unsubscribeFromKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    
-    // MARK: - Common methods
-    
-    func computeAndSetMemeContainerHeight(size: CGSize) {
-        memeContainerHeight.constant = size.height - toolbar.frame.height - navbar.frame.height
-    }
+    // MARK: TextField methods
     
     func initializeTextField(textField: UITextField!) {
         textField.delegate = self
         textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = NSTextAlignment.Center
     }
-
-    func presentImagePicker(sourceType: UIImagePickerControllerSourceType) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = sourceType
-        presentViewController(imagePicker, animated: true, completion: nil)
-    }
-
+    
     func blankTextField(textField: UITextField, whenEquals: UITextField!, havingText: String) {
         if textField == whenEquals && textField.text! == havingText {
             textField.text = ""
@@ -250,10 +215,64 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
             textField.text = toText
         }
     }
+    
+    
+    // MARK: - Keyboard Management
+    
+    // Changed how view is adjusted for keyboard notificatons. Using ScrollView as per 
+    // https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
+    
+    func keyboardWillShow(notification: NSNotification){
+        if keyboardAdjustment == 0.0 {
+            keyboardAdjustment = getKeyboardHeight(notification)
+            
+            let contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardAdjustment, 0.0)
+            scrollView.scrollEnabled = true
+            var scrollFrame = scrollView.frame
+            
+            adjustScrollInsets(contentInsets)
+            
+            scrollFrame.size.height -= keyboardAdjustment
+            
+            if let activeFieldPresent = activeField {
+                if !CGRectContainsPoint(scrollFrame, activeFieldPresent.frame.origin) {
+                    scrollView.scrollRectToVisible(activeFieldPresent.frame, animated: true)
+                }
+            }
+            scrollView.scrollEnabled = false
+        }
+    }
+
+    func keyboardWillHide(notification: NSNotification){
+        if keyboardAdjustment > 0.0 {
+            adjustScrollInsets(UIEdgeInsetsZero)
+            scrollView.frame.size.height += keyboardAdjustment
+            keyboardAdjustment = CGFloat(0.0)
+        }
+    }
+
+    func adjustScrollInsets(newInsets: UIEdgeInsets) {
+        scrollView.contentInset = newInsets
+        scrollView.scrollIndicatorInsets = newInsets
+    }
+    
+    
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.CGRectValue().height
+    }
+
+    // MARK: - Notifications
+    
+    func subscribeToKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
 }
 
