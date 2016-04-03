@@ -114,6 +114,7 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     
     @IBAction func shareMeme(sender: AnyObject) {
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: memeImage.image!, memedImage: generateMemedImage())
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
         let viewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
         presentViewController(viewController, animated: true, completion: nil)
     }
