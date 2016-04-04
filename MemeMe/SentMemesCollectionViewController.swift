@@ -24,20 +24,18 @@ class SentMemesCollectionViewController : UICollectionViewController {
         flowLayout.itemSize = CGSizeMake(widthDimension, heightDimension)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addMeme))
-        reloadData() 
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        collectionView?.reloadData()
+    }
+
     
     func addMeme(){
         let controller = storyboard!.instantiateViewControllerWithIdentifier("MemeMeEditor") as! MemeMeEditorViewController
-        controller.mc = self
         presentViewController(controller, animated: true, completion: nil)
     }
     
-    func reloadData() {
-        collectionView?.reloadData()
-        print(memes.count)
-        print("from delegate", (UIApplication.sharedApplication().delegate as! AppDelegate).memes)
-    }
     
     var memes: [Meme] {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).memes

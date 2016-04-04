@@ -22,8 +22,6 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName : NSNumber(float: -3.0)
     ]
-
-    var mc: SentMemesCollectionViewController?
     
     // MARK: - Outlets
     
@@ -124,7 +122,6 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         
         activityViewController.completionWithItemsHandler = { UIActivityViewControllerCompletionWithItemsHandler in
             self.dismissViewControllerAnimated(true, completion: nil)
-            self.mc!.reloadData()
         }
         
         
