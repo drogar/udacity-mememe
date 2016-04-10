@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -86,6 +87,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ctf-aP-Uhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="805" y="9"/>
+        </scene>
+        <!--Meme Me Detail View Controller-->
+        <scene sceneID="Ugp-bI-AD4">
+            <objects>
+                <viewController storyboardIdentifier="MemeMeDetailViewController" id="wBL-Ym-O1c" customClass="MemeMeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EeX-gV-U3Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="sBc-GB-Jvj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IIO-rN-JAY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KCb-OC-Ve0">
+                                <rect key="frame" x="20" y="28" width="560" height="552"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KCb-OC-Ve0" firstAttribute="top" secondItem="EeX-gV-U3Q" secondAttribute="bottom" constant="8" id="E1K-EW-WwF"/>
+                            <constraint firstItem="KCb-OC-Ve0" firstAttribute="leading" secondItem="IIO-rN-JAY" secondAttribute="leadingMargin" id="SB4-Xf-HmA"/>
+                            <constraint firstItem="sBc-GB-Jvj" firstAttribute="top" secondItem="KCb-OC-Ve0" secondAttribute="bottom" constant="20" id="Z3f-sJ-9ma"/>
+                            <constraint firstItem="KCb-OC-Ve0" firstAttribute="trailing" secondItem="IIO-rN-JAY" secondAttribute="trailingMargin" id="lRk-So-SB0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="memeImageView" destination="KCb-OC-Ve0" id="RpB-S7-fdm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8PR-KH-8dP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1577" y="19"/>
         </scene>
         <!--Meme Me Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -240,7 +273,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1483" y="340"/>
+            <point key="canvasLocation" x="1593" y="707"/>
         </scene>
         <!--Sent Memes Table View Controller-->
         <scene sceneID="XYT-Ik-ggF">
@@ -251,18 +284,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemeTableCell" rowHeight="83" id="Hjm-XZ-FDc" customClass="MemeTableCell" customModule="MemeMe" customModuleProvider="target">
+                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="TopLeft" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="MemeTableCell" rowHeight="83" id="Hjm-XZ-FDc" customClass="MemeTableCell" customModule="MemeMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hjm-XZ-FDc" id="IRR-k9-Doe">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="82"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C2d-t7-JGS">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C2d-t7-JGS">
                                             <rect key="frame" x="8" y="8" width="66" height="66"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="66" id="6SA-Ws-VLt"/>
-                                                <constraint firstAttribute="width" constant="66" id="HBT-rf-7gk"/>
+                                                <constraint firstAttribute="width" secondItem="C2d-t7-JGS" secondAttribute="height" multiplier="1:1" id="tA4-EK-nHG"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3s8-RX-l9n">
@@ -279,10 +311,10 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="3s8-RX-l9n" secondAttribute="bottom" id="CJQ-J6-ALS"/>
+                                        <constraint firstItem="3s8-RX-l9n" firstAttribute="bottom" secondItem="IRR-k9-Doe" secondAttribute="bottomMargin" id="CJQ-J6-ALS"/>
                                         <constraint firstItem="C2d-t7-JGS" firstAttribute="top" secondItem="IRR-k9-Doe" secondAttribute="topMargin" id="DXv-fG-1Jl"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="C2d-t7-JGS" secondAttribute="bottom" id="IaZ-67-7Qi"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="0zE-gb-Jnx" secondAttribute="trailing" constant="16" id="PR1-aJ-OW4"/>
+                                        <constraint firstItem="C2d-t7-JGS" firstAttribute="bottom" secondItem="IRR-k9-Doe" secondAttribute="bottomMargin" id="IaZ-67-7Qi"/>
+                                        <constraint firstItem="0zE-gb-Jnx" firstAttribute="trailing" secondItem="IRR-k9-Doe" secondAttribute="trailingMargin" constant="-16" id="PR1-aJ-OW4"/>
                                         <constraint firstItem="3s8-RX-l9n" firstAttribute="leading" secondItem="C2d-t7-JGS" secondAttribute="trailing" constant="-5" id="Ut0-hm-Blm"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="3s8-RX-l9n" secondAttribute="trailing" constant="16" id="XUN-ho-HBp"/>
                                         <constraint firstItem="0zE-gb-Jnx" firstAttribute="leading" secondItem="C2d-t7-JGS" secondAttribute="trailing" constant="-5" id="tpp-2A-FEm"/>

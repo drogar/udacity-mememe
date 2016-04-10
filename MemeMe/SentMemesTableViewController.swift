@@ -22,12 +22,13 @@ class SentMemesTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
 
     func addMeme(){
         let controller = storyboard!.instantiateViewControllerWithIdentifier("MemeMeEditor") as! MemeMeEditorViewController
-        //        controller.mc = self
         presentViewController(controller, animated: true, completion: nil)
     }
 
@@ -36,7 +37,9 @@ class SentMemesTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //display detail
+        let detailController = storyboard?.instantiateViewControllerWithIdentifier("MemeMeDetailViewController") as!        MemeMeDetailViewController
+        detailController.meme = memes[indexPath.row]
+        navigationController?.pushViewController(detailController, animated: true)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
