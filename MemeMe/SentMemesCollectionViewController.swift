@@ -18,10 +18,11 @@ class SentMemesCollectionViewController : UICollectionViewController {
         let space: CGFloat = 3.0
         let widthDimension = (view.frame.size.width - (2 * space)) / 3.0
         let heightDimension = (view.frame.size.height - (2 * space)) / 3.0
+        let dimension = min(widthDimension, heightDimension)
         
         flowLayout.minimumInteritemSpacing = space
         flowLayout.minimumLineSpacing = space
-        flowLayout.itemSize = CGSizeMake(widthDimension, heightDimension)
+        flowLayout.itemSize = CGSizeMake(dimension, dimension)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addMeme))
     }
