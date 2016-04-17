@@ -41,11 +41,12 @@ class SentMemesTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableCell") as! MemeTableCell
-        
+        let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableCell") as UITableViewCell!
+        cell.detailTextLabel!.font = cell.textLabel!.font
         let meme = memes[indexPath.row]
-        cell.setText(meme.topText, bottomText: meme.bottomText)
-        cell.memeImageView.image = meme.image
+        cell.textLabel!.text = meme.topText
+        cell.detailTextLabel!.text = meme.bottomText
+        cell.imageView?.image = meme.image
         
         return cell
         

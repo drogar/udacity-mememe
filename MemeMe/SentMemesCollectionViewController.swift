@@ -55,10 +55,9 @@ class SentMemesCollectionViewController : UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCollectionCell", forIndexPath: indexPath) as! MemeCollectionCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCollectionCell", forIndexPath: indexPath) as UICollectionViewCell!
         let meme = memes[indexPath.item]
-        cell.setText(meme.topText, bottomString: meme.bottomText)
-        let imageView = UIImageView(image: meme.image)
+        let imageView = UIImageView(image: meme.memedImage)
         cell.backgroundView = imageView
         
         return cell
