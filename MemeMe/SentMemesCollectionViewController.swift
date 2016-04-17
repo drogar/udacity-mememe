@@ -12,6 +12,7 @@ class SentMemesCollectionViewController : UICollectionViewController {
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
+    // MARK: - View overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +32,7 @@ class SentMemesCollectionViewController : UICollectionViewController {
         collectionView?.reloadData()
     }
 
+    // MARK: - Meme collection
     
     func addMeme(){
         let controller = storyboard!.instantiateViewControllerWithIdentifier("MemeMeEditor") as! MemeMeEditorViewController
@@ -42,6 +44,8 @@ class SentMemesCollectionViewController : UICollectionViewController {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
     }
     
+    
+    // MARK: -  Collection view overrides
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return memes.count
     }

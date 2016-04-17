@@ -44,7 +44,6 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
   
     
     // MARK: - View method overrides
-   
     override func viewWillAppear(animated: Bool) {
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         actionButton.enabled = (memeImage.image != nil)
@@ -53,10 +52,11 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         initializeTextField(bottomTextField)
         
         subscribeToKeyboardNotifications()
-        
-        computeAndSetMemeContainerHeight(view.frame.size)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        computeAndSetMemeContainerHeight(view.frame.size)
+    }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animateAlongsideTransition(nil, completion: { (context:UIViewControllerTransitionCoordinatorContext) -> Void in

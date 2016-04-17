@@ -10,10 +10,7 @@ import UIKit
 
 class SentMemesTableViewController: UITableViewController {
     
-    var memes: [Meme] {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
-    }
-    
+    // MARK: - View Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addMeme))
@@ -24,18 +21,24 @@ class SentMemesTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    // Mark: - Meme Collection
 
     func addMeme(){
         let controller = storyboard!.instantiateViewControllerWithIdentifier("MemeMeEditor") as! MemeMeEditorViewController
         presentViewController(controller, animated: true, completion: nil)
     }
 
+    var memes: [Meme] {
+        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
+    }
+    
+    // MARK: - Table view overrides
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailController = storyboard?.instantiateViewControllerWithIdentifier("MemeMeDetailViewController") as!        MemeMeDetailViewController
+        let detailController = storyboard?.instantiateViewControllerWithIdentifier("MemeMeDetailViewController") as! MemeMeDetailViewController
         detailController.meme = memes[indexPath.row]
         navigationController?.pushViewController(detailController, animated: true)
     }
@@ -49,6 +52,5 @@ class SentMemesTableViewController: UITableViewController {
         cell.imageView?.image = meme.image
         
         return cell
-        
     }
 }
