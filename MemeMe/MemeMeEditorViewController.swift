@@ -116,8 +116,6 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: memeImage.image!, memedImage: generateMemedImage())
         (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
         
-        print("when adding", (UIApplication.sharedApplication().delegate as! AppDelegate).memes)
-        
         let activityViewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
         
         activityViewController.completionWithItemsHandler = { UIActivityViewControllerCompletionWithItemsHandler in
