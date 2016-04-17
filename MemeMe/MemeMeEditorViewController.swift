@@ -22,7 +22,6 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName : NSNumber(float: -3.0)
     ]
-
     
     // MARK: - Outlets
     
@@ -45,7 +44,6 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
   
     
     // MARK: - View method overrides
-   
     override func viewWillAppear(animated: Bool) {
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         actionButton.enabled = (memeImage.image != nil)
@@ -54,10 +52,11 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         initializeTextField(bottomTextField)
         
         subscribeToKeyboardNotifications()
-        
-        computeAndSetMemeContainerHeight(view.frame.size)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        computeAndSetMemeContainerHeight(view.frame.size)
+    }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animateAlongsideTransition(nil, completion: { (context:UIViewControllerTransitionCoordinatorContext) -> Void in
@@ -110,12 +109,21 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
         memeImage.image = nil
         
         actionButton.enabled = false
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func shareMeme(sender: AnyObject) {
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: memeImage.image!, memedImage: generateMemedImage())
-        let viewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
-        presentViewController(viewController, animated: true, completion: nil)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        
+        let activityViewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
+        
+        activityViewController.completionWithItemsHandler = { UIActivityViewControllerCompletionWithItemsHandler in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        
+        presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     
@@ -266,8 +274,8 @@ class MemeMeEditorViewController: UIViewController, UIImagePickerControllerDeleg
     // MARK: - Notifications
     
     func subscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
