@@ -22,8 +22,6 @@ class SentMemesTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
 
